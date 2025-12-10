@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ServeService } from 'src/app/home/serve.service';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+
+  constructor(private serveService : ServeService )
+  {
+
+  }
+
+  upload(){
+    this.serveService.upload().subscribe(data => {
+      console.log(data)
+    })
+  }
 
 }
