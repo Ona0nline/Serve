@@ -7,11 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class ServeService {
 
+  uploadUrl: string = "http://localhost:8000/upload"
+
   constructor(private httpClient : HttpClient) { 
 
   }
 
-  upload() : Observable<JSON> {
-    return this.httpClient.get<JSON>("http://127.0.0.1:8000")
+  upload(formData: FormData) : Observable<JSON> {
+    return this.httpClient.post<JSON>(this.uploadUrl, formData)
   }
 }

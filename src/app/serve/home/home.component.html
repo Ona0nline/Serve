@@ -3,24 +3,23 @@
   <p class="subtitle">Upload pictures of your ingredients to generate a recipe!</p>
 
   <div class="upload-section">
-    <button class="upload-button" (click)="upload()">
+    <button class="upload-button" (click)="fileInput.click()">
       <i class="upload-icon">📤</i>
       <span>Upload Ingredients</span>
-      <input type="file">
     </button>
     
-  <input 
-      type="file" 
-      id="ingredient-upload" 
-      accept="image/*"
-      multiple
+    <input 
+      type="file"
+      #fileInput 
+      (change)="onFileSelect($event)" 
+      multiple 
       style="display: none;"
     >
 
   </div>
 
   <div class="generate-section">
-    <button class="generate-button">Generate Recipe</button>
+    <button class="generate-button" (click)="upload()">Generate Recipe</button>
   </div>
 
   <div class="recipe-section">
