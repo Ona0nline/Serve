@@ -29,10 +29,28 @@
     <button class="generate-button" (click)="upload()">Generate Recipe</button>
   </div>
 
-  <div class="recipe-section">
-    <h2>Your Recipe</h2>
-    <div class="recipe-placeholder">
-      <p>{{recipe}}</p>
+
+  <div class="recipe">
+    <div *ngIf="!hasGenerated; else hasNotGenerated">
+      <p>Upload images of your ingredients and click on the 'Generate recipe' to get started!</p>
     </div>
+    
+    <ng-template #hasNotGenerated>
+      <div class="recipe-section">
+        <h2>Your Recipe</h2>
+        <div *ngIf="spinner; else notSpinning">
+          <mat-spinner></mat-spinner>
+          <p>Generating recipe...</p>
+        </div>
+    
+        <ng-template #notSpinning>
+          <div class="recipe-placeholder">
+            <p>{{recipe}}</p>
+          </div>
+        </ng-template>
+    
+      </div>
+    </ng-template>
   </div>
+  
 </div>

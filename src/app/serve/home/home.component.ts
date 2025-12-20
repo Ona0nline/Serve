@@ -12,13 +12,14 @@ export class HomeComponent {
   selectedFiles: File[] = []
   recipe: string = ""
   uploadedImages: string[] = []; 
+  spinner = true
+  hasGenerated = false
 
   constructor(private serveService : ServeService ){}
 
   // Method for html
   onFileSelect(event: any){
 
-    const target = event.target as HTMLInputElement
     const images = event.target.files
 
     this.uploadedImages = []
@@ -50,9 +51,10 @@ export class HomeComponent {
     formData.append('ingredients', file)
   })
   
-  // Call service ONCE after adding all files
   this.serveService.upload(formData).subscribe(data => {
     this.recipe = data
+    this.spinner = false
+    this.hasGenerated = true
     console.log(data)
   })
   }
