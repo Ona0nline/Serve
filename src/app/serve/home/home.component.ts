@@ -10,14 +10,29 @@ export class HomeComponent {
 
   // List of files uploaded
   selectedFiles: File[] = []
+  recipe: string = ""
+  uploadedImages: string[] = []; 
 
   constructor(private serveService : ServeService ){}
 
   // Method for html
   onFileSelect(event: any){
+
     const target = event.target as HTMLInputElement
-    if (target.files){
-      this.selectedFiles = Array.from(target.files)
+    const images = event.target.files
+
+    this.uploadedImages = []
+
+    for (let image of images){
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.uploadedImages.push(e.target.result);  // Base64 image URL
+      };
+      reader.readAsDataURL(image);
+    }
+    
+    if (images){
+      this.selectedFiles = Array.from(images)
       console.log("Selected files: ", this.selectedFiles)
     }
 
@@ -32,11 +47,12 @@ export class HomeComponent {
 
   const formData = new FormData()
   this.selectedFiles.forEach(file => {
-    formData.append('ingredient', file)
+    formData.append('ingredients', file)
   })
   
   // Call service ONCE after adding all files
   this.serveService.upload(formData).subscribe(data => {
+    this.recipe = data
     console.log(data)
   })
   }

@@ -13,7 +13,11 @@ export class ServeService {
 
   }
 
-  upload(formData: FormData) : Observable<JSON> {
-    return this.httpClient.post<JSON>(this.uploadUrl, formData)
+  upload(formData: FormData) : Observable<any> {
+    
+    for (let pair of (formData as any).entries()) {
+      console.log(pair[0], pair[1]);
+    }
+    return this.httpClient.post(this.uploadUrl, formData)
   }
 }

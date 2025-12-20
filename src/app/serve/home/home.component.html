@@ -18,6 +18,13 @@
 
   </div>
 
+  <div class="uploaded-ingredients">
+    <h3>Your Ingredients:</h3>
+    <div class="image-grid">
+      <img width="220" *ngFor="let image of uploadedImages" [src]="image" alt="Ingredient">
+    </div>
+  </div>
+
   <div class="generate-section">
     <button class="generate-button" (click)="upload()">Generate Recipe</button>
   </div>
@@ -25,7 +32,7 @@
   <div class="recipe-section">
     <h2>Your Recipe</h2>
     <div class="recipe-placeholder">
-      <p>Your generated recipe will appear here.</p>
+      <p>{{recipe}}</p>
     </div>
   </div>
 </div>
